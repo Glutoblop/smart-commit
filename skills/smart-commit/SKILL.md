@@ -6,7 +6,7 @@ user-invocable: true
 # Smart Commit
 
 Two agents: **`smart-committer`** (sonnet / medium) reads the diffs and proposes a grouping;
-**`commit-runner`** (haiku) just runs the approved plan. The user approves/edits the proposal
+**`commit-runner`** (sonnet) just runs the approved plan. The user approves/edits the proposal
 between the two, then you offer to push.
 
 **Trigger phrases:** "commit", "commit everything", "commit pending", "commit all", "smart commit"

@@ -10,7 +10,7 @@ It splits the work across three models so the expensive reasoning only happens w
 |-------|-------|-----|
 | `smart-commit` skill | main loop | orchestrates the flow, talks to you |
 | `smart-committer` agent | **sonnet** (medium effort) | reads the diffs, proposes the grouping |
-| `commit-runner` agent | **haiku** | dumb executor — stages + commits the approved plan, runs the push |
+| `commit-runner` agent | **sonnet** | dumb executor — stages + commits the approved plan, runs the push |
 
 ## Flow
 
@@ -55,7 +55,7 @@ For a single project instead, copy into that repo's `.claude/skills/` and `.clau
 
 ## Requirements
 
-- Claude Code with the `sonnet` and `haiku` models available to your account.
+- Claude Code with the `sonnet` model available to your account.
 - A git repo with pending changes (the skill is a no-op on a clean tree).
 
 ## Repo layout
@@ -68,7 +68,7 @@ skills/
     SKILL.md          # the /smart-commit orchestrator
 agents/
   smart-committer.md  # sonnet — proposes the grouping
-  commit-runner.md    # haiku  — runs commits + push
+  commit-runner.md    # sonnet — runs commits + push
 ```
 
 ## Notes
