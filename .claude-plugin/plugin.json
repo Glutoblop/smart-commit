@@ -1,0 +1,10 @@
+{
+  "name": "smart-commit",
+  "description": "Group pending git changes into logical commits with contextual Conventional Commits messages. A sonnet agent proposes the grouping, you approve/edit, a cheap haiku agent runs the commits and the push.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Glutoblop"
+  },
+  "homepage": "https://github.com/Glutoblop/smart-commit",
+  "keywords": ["git", "commit", "conventional-commits", "workflow"]
+}
