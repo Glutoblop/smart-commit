@@ -26,17 +26,12 @@ Nothing is committed or pushed without your explicit go-ahead.
 
 ### Option A — as a plugin (recommended)
 
-Add this repo as a plugin marketplace, then install:
+This plugin is distributed through the **`gluto`** marketplace
+([Glutoblop/gluto-claude](https://github.com/Glutoblop/gluto-claude)). Add the marketplace, then install:
 
 ```
-/plugin marketplace add Glutoblop/smart-commit
-/plugin install smart-commit@smart-commit
-```
-
-`/plugin marketplace add` also accepts the full URL if you prefer:
-
-```
-/plugin marketplace add https://github.com/Glutoblop/smart-commit.git
+/plugin marketplace add Glutoblop/gluto-claude
+/plugin install smart-commit@gluto
 ```
 
 Restart Claude Code (or reload plugins) and `/smart-commit` is available in every project. The
@@ -67,8 +62,7 @@ For a single project instead, copy into that repo's `.claude/skills/` and `.clau
 
 ```
 .claude-plugin/
-  plugin.json         # plugin manifest
-  marketplace.json    # lets the repo be added as a marketplace directly
+  plugin.json         # plugin manifest (listed by the gluto marketplace)
 skills/
   smart-commit/
     SKILL.md          # the /smart-commit orchestrator
