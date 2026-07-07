@@ -24,11 +24,57 @@ Nothing is committed or pushed without your explicit go-ahead.
 
 ## Install
 
+> **Recommended: vendor into the project, do NOT `/plugin install`.**
+> Installing as a plugin namespaces everything as `plugin:name`. Because this plugin AND its skill are
+> both called `smart-commit`, you get the doubled, ugly `/smart-commit:smart-commit` — and the sub-agents
+> become `smart-commit:smart-committer` / `smart-commit:commit-runner`. Copying the files straight into a
+> project's `.claude/` registers them as plain project skills/agents, so the names stay **bare**
+> (`/smart-commit`, `smart-committer`, `commit-runner`) and they get committed + shared via the repo.
+
+### Option A — vendor into your project (recommended, bare names)
+
+From a clone of this repo, copy the pieces into the target repo's `.claude/`:
+
+```bash
+git clone https://github.com/Glutoblop/smart-commit.git
+cd smart-commit
+PROJ=/path/to/your/project
+
+mkdir -p "$PROJ/.claude/skills" "$PROJ/.claude/agents"
+cp -r skills/smart-commit                             "$PROJ/.claude/skills/"
+cp agents/smart-committer.md agents/commit-runner.md  "$PROJ/.claude/agents/"
+```
+
+The skill refers to its agents by **bare** `subagent_type` (`smart-committer`, `commit-runner`), so no
+path edits are needed — as project agents they resolve under exactly those names.
+
+To make them travel with clones, ensure the project's `.gitignore` doesn't swallow `.claude/`. A common
+pattern — ignore the dir but whitelist the shareable parts:
+
+```gitignore
+/.claude/*
+!/.claude/skills/
+!/.claude/agents/
+!/.claude/commands/
+!/.claude/hooks/
+!/.claude/settings.json
+```
+
+Then `/smart-commit` is available **in that project**, bare, versioned. (Optional: to auto-suggest the
+skill when you type "commit", add a `UserPromptSubmit` hook — see the project's `.claude/hooks/`.)
+
+For **every** project instead of one, copy the same files into `~/.claude/skills/` and `~/.claude/agents/`
+(user scope, unversioned) — still bare names, since user-scope skills aren't namespaced either.
+
+---
+
+### Plugin install (namespaces the names — not recommended)
+
 > **Install from ONE source only.** Don't add both this repo and the `gluto` bundle — two
 > marketplaces offering `smart-commit` make the name ambiguous, and Claude Code then forces the
 > namespaced `/smart-commit:smart-commit` instead of bare `/smart-commit`. Pick A **or** B.
 
-### Option A — from this repo (self-contained, recommended)
+#### Marketplace B1 — from this repo (self-contained)
 
 This repo ships its own `.claude-plugin/marketplace.json`, so it installs directly from its URL:
 
@@ -39,31 +85,17 @@ This repo ships its own `.claude-plugin/marketplace.json`, so it installs direct
 
 Format is `<plugin>@<marketplace>`; here both are `smart-commit`.
 
-### Option B — from the gluto bundle (several plugins in one marketplace)
+#### Marketplace B2 — from the gluto bundle (several plugins in one marketplace)
 
 ```
 /plugin marketplace add Glutoblop/gluto-claude
 /plugin install smart-commit@gluto
 ```
 
-Either way, restart Claude Code (or reload plugins) and **`/smart-commit`** is available in every
-project — bare, because the name is unique. The plugin ships the skill and both sub-agents together,
-no extra setup.
-
-### Option C — manual (no plugin system)
-
-Clone and copy the pieces into your Claude config directory:
-
-```bash
-git clone https://github.com/Glutoblop/smart-commit.git
-cd smart-commit
-
-# user-level (available in every project):
-cp -r skills/smart-commit  ~/.claude/skills/
-cp agents/smart-committer.md agents/commit-runner.md  ~/.claude/agents/
-```
-
-For a single project instead, copy into that repo's `.claude/skills/` and `.claude/agents/`.
+Either way, restart Claude Code (or reload plugins). In practice Claude Code namespaces plugin content,
+so the command commonly shows up as **`/smart-commit:smart-commit`** (plugin name + skill name) and the
+agents as `smart-commit:smart-committer` / `smart-commit:commit-runner`. If you want bare names, use the
+vendor option above instead.
 
 ## Requirements
 
