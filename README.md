@@ -24,23 +24,35 @@ Nothing is committed or pushed without your explicit go-ahead.
 
 ## Install
 
-### Option A — as a plugin (recommended)
+> **Install from ONE source only.** Don't add both this repo and the `gluto` bundle — two
+> marketplaces offering `smart-commit` make the name ambiguous, and Claude Code then forces the
+> namespaced `/smart-commit:smart-commit` instead of bare `/smart-commit`. Pick A **or** B.
 
-This plugin is distributed through the **`gluto`** marketplace
-([Glutoblop/gluto-claude](https://github.com/Glutoblop/gluto-claude)). Add the marketplace, then install:
+### Option A — from this repo (self-contained, recommended)
+
+This repo ships its own `.claude-plugin/marketplace.json`, so it installs directly from its URL:
+
+```
+/plugin marketplace add Glutoblop/smart-commit
+/plugin install smart-commit@smart-commit
+```
+
+Format is `<plugin>@<marketplace>`; here both are `smart-commit`.
+
+### Option B — from the gluto bundle (several plugins in one marketplace)
 
 ```
 /plugin marketplace add Glutoblop/gluto-claude
 /plugin install smart-commit@gluto
 ```
 
-Restart Claude Code (or reload plugins) and `/smart-commit` is available in every project. The
-plugin ships the skill and both sub-agents together — no extra setup.
+Either way, restart Claude Code (or reload plugins) and **`/smart-commit`** is available in every
+project — bare, because the name is unique. The plugin ships the skill and both sub-agents together,
+no extra setup.
 
-### Option B — manual (copy into your `~/.claude`)
+### Option C — manual (no plugin system)
 
-If you don't want to use the plugin system, clone the repo and copy the pieces into your Claude
-config directory:
+Clone and copy the pieces into your Claude config directory:
 
 ```bash
 git clone https://github.com/Glutoblop/smart-commit.git

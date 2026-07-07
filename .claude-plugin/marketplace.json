@@ -1,0 +1,13 @@
+{
+  "name": "smart-commit",
+  "owner": {
+    "name": "Glutoblop",
+    "url": "https://github.com/Glutoblop"
+  },
+  "plugins": [
+    {
+      "name": "smart-commit",
+      "source": "./"
+    }
+  ]
+}
